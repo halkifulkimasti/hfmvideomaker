@@ -18,7 +18,20 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body { background: var(--bg); color: var(--text); line-height: 1.55; padding: 12px; }
-    .container { max-width: 760px; margin: 0 auto; }
+    .container { max-width: 780px; margin: 0 auto; }
+
+    /* Top AdSense-Friendly Navigation Bar */
+    .top-nav {
+      display: flex; align-items: center; gap: 14px; overflow-x: auto;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 10px 14px; border-radius: 12px; margin-bottom: 12px;
+      white-space: nowrap; scrollbar-width: none;
+    }
+    .top-nav::-webkit-scrollbar { display: none; }
+    .top-nav a {
+      color: #d4d4d8; text-decoration: none; font-size: 0.84rem; font-weight: 600;
+    }
+    .top-nav a.active, .top-nav a:hover { color: var(--accent); }
 
     /* Clean Mobile-First Channel Header */
     .channel-header {
@@ -49,7 +62,6 @@
     .yt-sub-pill.subscribed {
       background: #27272a; color: #ffffff; border: 1px solid #3f3f46;
     }
-    .yt-sub-pill svg { width: 18px; height: 18px; fill: currentColor; }
 
     /* YouTube-Style Bottom Sheet Modal */
     .sheet-backdrop {
@@ -75,11 +87,11 @@
       background: transparent; color: #fff; border: none; padding: 13px 8px;
       font-size: 0.96rem; cursor: pointer; border-radius: 10px; text-align: left;
     }
-    .sheet-option:hover, .sheet-option.selected { background: #303030; }
+    .sheet-option:hover { background: #303030; }
     .sheet-option-left { display: flex; align-items: center; gap: 14px; }
     .sheet-divider { height: 1px; background: #333; margin: 6px 0; }
 
-    /* Clean 2-Button Studio Switcher (Zero Mobile Clutter) */
+    /* Clean 2-Button Studio Switcher */
     .studio-switcher {
       display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
       background: var(--card); padding: 6px; border-radius: 14px;
@@ -101,7 +113,7 @@
     .hidden { display: none !important; }
 
     label { display: block; font-size: 0.84rem; font-weight: 600; color: #d4d4d8; margin: 12px 0 6px; }
-    select, textarea, input[type="text"], input[type="email"], input[type="file"] {
+    select, textarea, input[type="text"], input[type="file"] {
       width: 100%; background: #121214; color: #fff; border: 1px solid var(--border);
       border-radius: 12px; padding: 12px; font-size: 0.94rem;
     }
@@ -130,18 +142,13 @@
     }
     .review-item p { color: #d4d4d8; font-size: 0.88rem; margin-top: 4px; }
 
-    /* Clean AdSense Footer + Info Drawer */
+    /* Clean AdSense Footer */
     footer {
       text-align: center; color: var(--muted); font-size: 0.82rem;
       padding: 18px 8px 30px; border-top: 1px solid var(--border); margin-top: 10px;
     }
-    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 10px; }
-    .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; cursor: pointer; }
-
-    .info-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
-    .info-section h3 { color: var(--accent); font-size: 1rem; margin: 10px 0 6px; }
-    .info-section p, .info-section li { color: #d4d4d8; font-size: 0.9rem; margin-bottom: 8px; }
-    .info-section ul { padding-left: 18px; }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; }
+    .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
 
     .toast {
       position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
@@ -153,6 +160,16 @@
 </head>
 <body>
   <div class="container">
+    <!-- Top Navigation Bar (Direct Links to All AdSense Pages) -->
+    <nav class="top-nav">
+      <a href="index.html" class="active">🏠 Home</a>
+      <a href="guide.html">📘 How to Use</a>
+      <a href="about.html">ℹ️ About Us</a>
+      <a href="privacy.html">🔒 Privacy Policy</a>
+      <a href="terms.html">📜 Terms</a>
+      <a href="contact.html">📞 Contact Us</a>
+    </nav>
+
     <!-- Clean YouTube-Style Channel Header -->
     <header class="channel-header">
       <div class="channel-top">
@@ -160,7 +177,7 @@
           <div class="avatar">HFM</div>
           <div class="channel-title">
             <h1>HFM Video Maker</h1>
-            <div class="channel-meta">@HFMVideoMaker • <span id="subCountText">1,240</span> subscribers</div>
+            <div class="channel-meta">@HFMVideoMaker • Official AI Creator Studio</div>
           </div>
         </div>
         <button id="ytSubBtn" class="yt-sub-pill" onclick="handleSubPillClick()">
@@ -236,15 +253,6 @@
       <div id="voiceResult"></div>
     </section>
 
-    <!-- AdSense Info Viewer (Opens cleanly when footer links are tapped) -->
-    <section id="infoPanel" class="card hidden">
-      <div style="display:flex;justify-content:space-between;align-items:center;">
-        <h2 id="infoTitle">Information</h2>
-        <button onclick="closeInfo()" style="background:#27272a;color:#fff;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;">✕ Close</button>
-      </div>
-      <div id="infoBody" class="info-section"></div>
-    </section>
-
     <!-- User Reviews Section -->
     <section class="card">
       <h2>⭐ User Reviews</h2>
@@ -263,43 +271,44 @@
         </div>
       </div>
       <label for="revText">Your Feedback</label>
-      <textarea id="revText" rows="2" placeholder="Share your experience with HFM Video Maker..."></textarea>
+      <textarea id="revText" rows="2" placeholder="Be the first to share your experience with HFM Video Maker..."></textarea>
       <button class="btn-primary" onclick="postReview()">Submit Review</button>
       <div id="reviewsList"></div>
     </section>
 
-    <!-- Clean Footer with Essential AdSense Links -->
+    <!-- Clean Footer with Direct AdSense Links -->
     <footer>
       <p><strong>© 2026 HFM Video Maker. All Rights Reserved.</strong></p>
       <p>Official Support: <a href="mailto:halkifulkimasti@gmail.com" style="color:#f59e0b;">halkifulkimasti@gmail.com</a></p>
       <div class="footer-links">
-        <a onclick="openInfo('guide')">How to Use</a>
-        <a onclick="openInfo('about')">About Us</a>
-        <a onclick="openInfo('privacy')">Privacy Policy</a>
-        <a onclick="openInfo('terms')">Terms & Conditions</a>
-        <a onclick="openInfo('contact')">Contact Us</a>
+        <a href="index.html">Home</a>
+        <a href="guide.html">How to Use</a>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
       </div>
     </footer>
   </div>
 
   <!-- YouTube-Style Notification Bottom Sheet -->
-  <div id="notifSheetBackdrop" class="sheet-backdrop" onclick="closeNotifSheet(event)">
+  <div id="notifSheetBackdrop" class="sheet-backdrop" onclick="closeNotifSheet()">
     <div class="bottom-sheet" onclick="event.stopPropagation()">
       <div class="sheet-handle"></div>
       <div class="sheet-title">Notifications</div>
       <div id="notifStatusNote" class="sheet-subtitle">Choose which updates and new AI features you want to receive.</div>
 
-      <button class="sheet-option" id="optAll" onclick="setNotifMode('all')">
+      <button class="sheet-option" onclick="setNotifMode('all')">
         <div class="sheet-option-left"><span>🔔</span><span>All (New features, models & updates)</span></div>
         <span id="checkAll"></span>
       </button>
 
-      <button class="sheet-option" id="optPers" onclick="setNotifMode('personalized')">
+      <button class="sheet-option" onclick="setNotifMode('personalized')">
         <div class="sheet-option-left"><span>🛎️</span><span>Personalized</span></div>
         <span id="checkPers"></span>
       </button>
 
-      <button class="sheet-option" id="optNone" onclick="setNotifMode('none')">
+      <button class="sheet-option" onclick="setNotifMode('none')">
         <div class="sheet-option-left"><span>🔕</span><span id="noneLabel">None (Notifications off)</span></div>
         <span id="checkNone"></span>
       </button>
@@ -323,13 +332,10 @@
     }
 
     // YouTube-Style Subscribe & Notification Controller
-    let subState = JSON.parse(localStorage.getItem("hfm_sub_state") || '{"subscribed":false,"mode":"all","count":1240}');
+    let subState = JSON.parse(localStorage.getItem("hfm_sub_v2") || '{"subscribed":false,"mode":"all"}');
 
     function renderSubUI() {
       const btn = document.getElementById("ytSubBtn");
-      const countEl = document.getElementById("subCountText");
-      countEl.textContent = subState.count.toLocaleString();
-
       if (!subState.subscribed) {
         btn.classList.remove("subscribed");
         btn.innerHTML = `<span>Subscribe</span>`;
@@ -353,13 +359,12 @@
         document.getElementById("notifStatusNote").textContent = "Choose which updates and new AI features you want to receive.";
         document.getElementById("noneLabel").textContent = "None (Turn off notifications)";
       }
-      localStorage.setItem("hfm_sub_state", JSON.stringify(subState));
+      localStorage.setItem("hfm_sub_v2", JSON.stringify(subState));
     }
 
     async function handleSubPillClick() {
       if (!subState.subscribed) {
         subState.subscribed = true;
-        subState.count += 1;
         subState.mode = "all";
         if ("Notification" in window && Notification.permission === "default") {
           const perm = await Notification.requestPermission();
@@ -406,7 +411,6 @@
 
     function unsubscribeChannel() {
       subState.subscribed = false;
-      subState.count = Math.max(1240, subState.count - 1);
       renderSubUI();
       closeNotifSheet();
       showToast("Unsubscribed from HFM Video Maker");
@@ -430,65 +434,6 @@
         aBtn.classList.add("active");
         vBtn.classList.remove("active");
       }
-    }
-
-    // AdSense Essential Pages Drawer
-    const infoContent = {
-      guide: {
-        title: "📘 How to Use HFM Video Maker",
-        html: `<p><strong>HFM Video Maker</strong> lets creators produce watermark-free AI videos and realistic multi-age voiceovers in Hindi, English, and major global languages.</p>
-               <h3>1. Creating AI Videos</h3>
-               <ul><li>Select <strong>Seedance 1.0</strong>, <strong>MiniMax</strong>, or <strong>RunwayML</strong>.</li>
-               <li>Enter a clear scene prompt and optionally upload a character reference image.</li>
-               <li>Click <strong>Generate Watermark-Free Video</strong> to render and download your HD MP4.</li></ul>
-               <h3>2. Creating Studio Voiceovers</h3>
-               <ul><li>Switch to <strong>Voice Studio</strong>, pick <strong>Sarvam AI</strong> or <strong>ElevenLabs</strong>, choose speaker age/gender, and download your audio.</li></ul>`
-      },
-      about: {
-        title: "ℹ️ About HFM Video Maker",
-        html: `<p><strong>HFM Video Maker</strong> unifies RunwayML, MiniMax, Seedance, Sarvam AI, and ElevenLabs into a single mobile-friendly creator studio built for reels, animated stories, and educational content.</p>
-               <p><strong>Official Contact:</strong> halkifulkimasti@gmail.com</p>`
-      },
-      privacy: {
-        title: "🔒 Privacy Policy",
-        html: `<p><em>Last Updated: November 2026</em></p>
-               <ul><li><strong>Media Processing:</strong> Prompts and reference images are processed solely to generate requested media and are never sold to third parties.</li>
-               <li><strong>Cookies & Google AdSense:</strong> Third-party vendors, including Google, use cookies (such as the DoubleClick DART cookie) to serve ads based on prior visits. Users may opt out via Google Ad Settings.</li>
-               <li><strong>Contact:</strong> halkifulkimasti@gmail.com</li></ul>`
-      },
-      terms: {
-        title: "📜 Terms & Conditions",
-        html: `<ul><li>Use this platform strictly for lawful, creative, and educational projects. Deceptive deepfakes or harmful content are prohibited.</li>
-               <li>You retain rights to original outputs generated from your prompts.</li></ul>`
-      },
-      contact: {
-        title: "📞 Contact Us",
-        html: `<p>For support, feedback, or business inquiries, email us directly at <strong>halkifulkimasti@gmail.com</strong> or send a message below:</p>
-               <label>Your Name</label><input type="text" id="cName" placeholder="Full name" />
-               <label>Your Email</label><input type="email" id="cEmail" placeholder="you@example.com" />
-               <label>Message</label><textarea id="cMsg" rows="3" placeholder="How can we help?"></textarea>
-               <button class="btn-primary" onclick="sendContact()">Send Message</button>
-               <div id="contactStatus" class="status-box"></div>`
-      }
-    };
-
-    function openInfo(key) {
-      document.getElementById("infoTitle").textContent = infoContent[key].title;
-      document.getElementById("infoBody").innerHTML = infoContent[key].html;
-      const panel = document.getElementById("infoPanel");
-      panel.classList.remove("hidden");
-      panel.scrollIntoView({ behavior: "smooth" });
-    }
-    function closeInfo() {
-      document.getElementById("infoPanel").classList.add("hidden");
-    }
-    function sendContact() {
-      const n = document.getElementById("cName").value.trim();
-      const e = document.getElementById("cEmail").value.trim();
-      const m = document.getElementById("cMsg").value.trim();
-      const st = document.getElementById("contactStatus");
-      if (!n || !e || !m) { st.textContent = "❌ Please fill in all fields."; return; }
-      st.textContent = `✅ Thank you, ${n}! Your inquiry has been routed to halkifulkimasti@gmail.com.`;
     }
 
     // Speaker List
@@ -612,13 +557,13 @@
       btn.disabled = false;
     }
 
-    // Reviews
-    const defaultReviews = [
-      { name: "Rahul Verma", star: "⭐⭐⭐⭐⭐", text: "Clean mobile interface and realistic multi-language voices with Sarvam AI & ElevenLabs!" },
-      { name: "Sneha Gupta", star: "⭐⭐⭐⭐⭐", text: "Watermark-free video export works great for animated shorts." }
-    ];
+    // Authentic User Reviews (No Placeholder Numbers)
     function renderReviews() {
-      const saved = JSON.parse(localStorage.getItem("hfm_reviews") || "null") || defaultReviews;
+      const saved = JSON.parse(localStorage.getItem("hfm_reviews_v2") || "[]");
+      if (!saved.length) {
+        document.getElementById("reviewsList").innerHTML = `<p style="color:#a1a1aa;font-size:0.86rem;margin-top:10px;">No reviews yet. Be the first creator to leave feedback!</p>`;
+        return;
+      }
       document.getElementById("reviewsList").innerHTML = saved.map(r => `
         <div class="review-item"><strong>${r.name}</strong> &nbsp; <span>${r.star}</span><p>${r.text}</p></div>
       `).join("");
@@ -628,9 +573,9 @@
       const star = document.getElementById("revStar").value;
       const text = document.getElementById("revText").value.trim();
       if (!name || !text) { showToast("❌ Please enter your name and review."); return; }
-      const saved = JSON.parse(localStorage.getItem("hfm_reviews") || "null") || defaultReviews;
+      const saved = JSON.parse(localStorage.getItem("hfm_reviews_v2") || "[]");
       saved.unshift({ name, star, text });
-      localStorage.setItem("hfm_reviews", JSON.stringify(saved));
+      localStorage.setItem("hfm_reviews_v2", JSON.stringify(saved));
       document.getElementById("revName").value = "";
       document.getElementById("revText").value = "";
       renderReviews();
