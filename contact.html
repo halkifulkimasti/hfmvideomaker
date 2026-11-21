@@ -3,50 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact Us — HFM Video Maker</title>
+  <title>Contact Us — HFM Voice Maker</title>
   <style>
-    body { background:#0f0f0f; color:#e4e4e7; font-family:system-ui,sans-serif; line-height:1.7; padding:20px; max-width:800px; margin:auto; }
-    a { color:#f59e0b; text-decoration:none; }
-    h1, h2 { color:#fff; margin-top:20px; }
-    .nav { background:#1c1c1e; padding:12px 16px; border-radius:12px; margin-bottom:20px; display:flex; gap:14px; flex-wrap:wrap; }
-    .card { background:#1c1c1e; border:1px solid #323236; padding:18px; border-radius:14px; margin-top:16px; }
-    label { display:block; margin:12px 0 6px; font-weight:600; font-size:0.9rem; }
-    input, textarea { width:100%; background:#121214; color:#fff; border:1px solid #323236; border-radius:10px; padding:11px; box-sizing:border-box; }
-    button { width:100%; background:#f59e0b; color:#000; border:none; padding:12px; border-radius:10px; font-weight:700; margin-top:14px; cursor:pointer; }
+    :root { --bg: #0f0f0f; --card: #1c1c1e; --border: #323236; --text: #ffffff; --muted: #a1a1aa; --accent: #f59e0b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.65; padding: 12px; }
+    .container { max-width: 780px; margin: 0 auto; }
+    .top-nav { display: flex; align-items: center; gap: 14px; overflow-x: auto; background: var(--card); border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; margin-bottom: 14px; white-space: nowrap; }
+    .top-nav a { color: #d4d4d8; text-decoration: none; font-size: 0.84rem; font-weight: 600; }
+    .top-nav a.active, .top-nav a:hover { color: var(--accent); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+    h1 { font-size: 1.35rem; color: var(--accent); margin-bottom: 10px; }
+    p { font-size: 0.92rem; color: #d4d4d8; margin-bottom: 10px; }
+    label { display: block; font-size: 0.84rem; font-weight: 600; color: #d4d4d8; margin: 12px 0 6px; }
+    input, textarea { width: 100%; background: #121214; color: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 0.94rem; }
+    .btn-primary { width: 100%; background: var(--accent); color: #000; border: none; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 0.98rem; cursor: pointer; margin-top: 14px; }
+    footer { text-align: center; color: var(--muted); font-size: 0.82rem; padding: 18px 8px 30px; border-top: 1px solid var(--border); }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; }
+    .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="index.html">🏠 Home</a>
-    <a href="guide.html">How to Use</a>
-    <a href="about.html">About Us</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Contact Us</a>
+  <div class="container">
+    <nav class="top-nav">
+      <a href="index.html">🏠 Home</a>
+      <a href="guide.html">📘 How to Use</a>
+      <a href="about.html">ℹ️ About Us</a>
+      <a href="privacy.html">🔒 Privacy Policy</a>
+      <a href="terms.html">📜 Terms</a>
+      <a href="contact.html" class="active">📞 Contact Us</a>
+    </nav>
+
+    <div class="card">
+      <h1>📞 Contact HFM Voice Maker</h1>
+      <p>Have a question about our AI voices, need technical help, or want to discuss advertising and partnerships? Send us a message below or email us directly at <a href="mailto:halkifulkimasti@gmail.com" style="color:#f59e0b;font-weight:600;">halkifulkimasti@gmail.com</a>.</p>
+
+      <label for="cName">Your Name</label>
+      <input type="text" id="cName" placeholder="Enter your name..." />
+
+      <label for="cEmail">Your Email</label>
+      <input type="email" id="cEmail" placeholder="Enter your email address..." />
+
+      <label for="cMsg">Message</label>
+      <textarea id="cMsg" rows="4" placeholder="How can we help you?"></textarea>
+
+      <button class="btn-primary" onclick="sendContactMail()">✉️ Send Message</button>
+    </div>
+
+    <footer>
+      <p><strong>© 2026 HFM Voice Maker. All Rights Reserved.</strong></p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="guide.html">How to Use</a>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </footer>
   </div>
-  <h1>Contact Us</h1>
-  <p>Have questions, feedback, or business inquiries about <strong>HFM Video Maker</strong>? Email us directly at <strong>halkifulkimasti@gmail.com</strong> or fill out the form below:</p>
-  <div class="card">
-    <label for="cName">Your Name</label>
-    <input type="text" id="cName" placeholder="Enter your full name" />
-    <label for="cEmail">Your Email Address</label>
-    <input type="email" id="cEmail" placeholder="you@example.com" />
-    <label for="cMsg">Message</label>
-    <textarea id="cMsg" rows="4" placeholder="Write your message here..."></textarea>
-    <button onclick="submitForm()">Send Message</button>
-    <p id="cStatus" style="color:#facc15; margin-top:12px; font-weight:600;"></p>
-  </div>
+
   <script>
-    function submitForm() {
-      const n = document.getElementById("cName").value.trim();
-      const e = document.getElementById("cEmail").value.trim();
-      const m = document.getElementById("cMsg").value.trim();
-      const st = document.getElementById("cStatus");
-      if (!n || !e || !m) { st.textContent = "❌ Please fill in all fields."; return; }
-      st.textContent = `✅ Thank you, ${n}! Your message has been sent to halkifulkimasti@gmail.com. We will reply to ${e} within 24–48 hours.`;
-      document.getElementById("cName").value = "";
-      document.getElementById("cEmail").value = "";
-      document.getElementById("cMsg").value = "";
+    function sendContactMail() {
+      const name = document.getElementById("cName").value.trim();
+      const email = document.getElementById("cEmail").value.trim();
+      const msg = document.getElementById("cMsg").value.trim();
+      if (!name || !msg) { alert("Please enter your name and message."); return; }
+      const subject = encodeURIComponent(`HFM Voice Maker Inquiry from ${name}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+      window.location.href = `mailto:halkifulkimasti@gmail.com?subject=${subject}&body=${body}`;
     }
   </script>
 </body>
