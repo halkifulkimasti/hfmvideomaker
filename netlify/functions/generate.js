@@ -9,6 +9,17 @@ exports.handler = async (event) => {
 
     // 1. START VIDEO GENERATION
     if (action === "start_video") {
+      // FREE WATERMARK-FREE ENGINE (No Card / No Balance Required)
+      if (engine === "free_ai") {
+        const seed = Math.floor(Math.random() * 1000000);
+        const encodedPrompt = encodeURIComponent(prompt);
+        const videoUrl = `https://video.pollinations.ai/prompt/${encodedPrompt}?width=720&height=1280&seed=${seed}&nologo=true`;
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ immediateUrl: videoUrl })
+        };
+      }
+
       if (engine === "runway") {
         const key = (process.env.RUNWAY_API_KEY || "").trim();
         if (!key) return { statusCode: 400, body: JSON.stringify({ error: "RUNWAY_API_KEY is missing in Netlify." }) };
