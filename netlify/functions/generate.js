@@ -5,15 +5,19 @@ exports.handler = async (event) => {
 
   try {
     const body = JSON.parse(event.body || "{}");
-    const { action, engine, prompt, imageBase64, taskId, provider, speaker, lang, text } = body;
+    const { action, engine, ratio, prompt, imageBase64, taskId, provider, speaker, lang, text } = body;
 
     // 1. START VIDEO GENERATION
     if (action === "start_video") {
       // FREE WATERMARK-FREE ENGINE (No Card / No Balance Required)
       if (engine === "free_ai") {
+        let width = 720, height = 1280; // Default 9:16
+        if (ratio === "16:9") { width = 1280; height = 720; }
+        else if (ratio === "1:1") { width = 1024; height = 1024; }
+
         const seed = Math.floor(Math.random() * 1000000);
         const encodedPrompt = encodeURIComponent(prompt);
-        const videoUrl = `https://video.pollinations.ai/prompt/${encodedPrompt}?width=720&height=1280&seed=${seed}&nologo=true`;
+        const videoUrl = `https://video.pollinations.ai/prompt/${encodedPrompt}?width=${width}&height=${height}&seed=${seed}&nologo=true`;
         return {
           statusCode: 200,
           body: JSON.stringify({ immediateUrl: videoUrl })
@@ -23,6 +27,10 @@ exports.handler = async (event) => {
       if (engine === "runway") {
         const key = (process.env.RUNWAY_API_KEY || "").trim();
         if (!key) return { statusCode: 400, body: JSON.stringify({ error: "RUNWAY_API_KEY is missing in Netlify." }) };
+
+        let runwayRatio = "768:1280";
+        if (ratio === "16:9") runwayRatio = "1280:768";
+        else if (ratio === "1:1") runwayRatio = "960:960";
 
         const res = await fetch("https://api.dev.runwayml.com/v1/image_to_video", {
           method: "POST",
@@ -35,7 +43,7 @@ exports.handler = async (event) => {
             promptImage: imageBase64,
             promptText: prompt,
             model: "gen3a_turbo",
-            ratio: "768:1280",
+            ratio: runwayRatio,
             duration: 5
           })
         });
@@ -48,7 +56,8 @@ exports.handler = async (event) => {
         const key = (process.env.MINIMAX_API_KEY || "").trim();
         if (!key) return { statusCode: 400, body: JSON.stringify({ error: "MINIMAX_API_KEY is missing in Netlify." }) };
 
-        const payload = { model: "video-01", prompt };
+        const finalPrompt = ratio ? `${prompt} (${ratio} aspect ratio)` : prompt;
+        const payload = { model: "video-01", prompt: finalPrompt };
         if (imageBase64) payload.first_frame_image = imageBase64;
 
         const res = await fetch("https://api.minimax.io/v1/video_generation", {
@@ -68,7 +77,8 @@ exports.handler = async (event) => {
         const key = (process.env.SEEDANCE_API_KEY || "").trim();
         if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SEEDANCE_API_KEY is missing in Netlify." }) };
 
-        const content = [{ type: "text", text: `${prompt} --ratio 9:16 --dur 5` }];
+        const selectedRatio = ratio || "9:16";
+        const content = [{ type: "text", text: `${prompt} --ratio ${selectedRatio} --dur 5` }];
         if (imageBase64) {
           content.push({ type: "image_url", image_url: { url: imageBase64 } });
         }
