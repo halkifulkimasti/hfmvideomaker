@@ -3,33 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms & Conditions — HFM Video Maker</title>
+  <title>Terms & Conditions — HFM Voice Maker</title>
   <style>
-    body { background:#0f0f0f; color:#e4e4e7; font-family:system-ui,sans-serif; line-height:1.7; padding:20px; max-width:800px; margin:auto; }
-    a { color:#f59e0b; text-decoration:none; }
-    h1, h2 { color:#fff; margin-top:20px; }
-    .nav { background:#1c1c1e; padding:12px 16px; border-radius:12px; margin-bottom:20px; display:flex; gap:14px; flex-wrap:wrap; }
+    :root { --bg: #0f0f0f; --card: #1c1c1e; --border: #323236; --text: #ffffff; --muted: #a1a1aa; --accent: #f59e0b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.65; padding: 12px; }
+    .container { max-width: 780px; margin: 0 auto; }
+    .top-nav { display: flex; align-items: center; gap: 14px; overflow-x: auto; background: var(--card); border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; margin-bottom: 14px; white-space: nowrap; }
+    .top-nav a { color: #d4d4d8; text-decoration: none; font-size: 0.84rem; font-weight: 600; }
+    .top-nav a.active, .top-nav a:hover { color: var(--accent); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+    h1 { font-size: 1.35rem; color: var(--accent); margin-bottom: 10px; }
+    h2 { font-size: 1.05rem; color: #fff; margin: 16px 0 6px; }
+    p { font-size: 0.92rem; color: #d4d4d8; margin-bottom: 10px; }
+    footer { text-align: center; color: var(--muted); font-size: 0.82rem; padding: 18px 8px 30px; border-top: 1px solid var(--border); }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; }
+    .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="index.html">🏠 Home</a>
-    <a href="guide.html">How to Use</a>
-    <a href="about.html">About Us</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Contact Us</a>
+  <div class="container">
+    <nav class="top-nav">
+      <a href="index.html">🏠 Home</a>
+      <a href="guide.html">📘 How to Use</a>
+      <a href="about.html">ℹ️ About Us</a>
+      <a href="privacy.html">🔒 Privacy Policy</a>
+      <a href="terms.html" class="active">📜 Terms</a>
+      <a href="contact.html">📞 Contact Us</a>
+    </nav>
+
+    <div class="card">
+      <h1>📜 Terms & Conditions</h1>
+      <p>By accessing and using <strong>HFM Voice Maker</strong>, you agree to comply with the following terms and responsible-use guidelines.</p>
+
+      <h2>1. Responsible AI Voice Usage</h2>
+      <p>You agree to use HFM Voice Maker strictly for lawful creative, educational, storytelling, and entertainment purposes. Generating deceptive impersonations, hate speech, harassment, or fraudulent audio content is strictly prohibited.</p>
+
+      <h2>2. Content Ownership & Platform Compliance</h2>
+      <p>You retain full responsibility for the scripts you input and how you publish generated voiceovers on platforms such as YouTube, Instagram, or Facebook. Always follow each social media platform's synthetic media disclosure policies where applicable.</p>
+
+      <h2>3. Service Availability</h2>
+      <p>HFM Voice Maker relies on third-party AI speech synthesis APIs. While we strive for uninterrupted availability, generation speed and uptime may occasionally depend on upstream API capacity.</p>
+
+      <h2>4. Contact</h2>
+      <p>For questions regarding these Terms, contact <a href="mailto:halkifulkimasti@gmail.com" style="color:#f59e0b;">halkifulkimasti@gmail.com</a>.</p>
+    </div>
+
+    <footer>
+      <p><strong>© 2026 HFM Voice Maker. All Rights Reserved.</strong></p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="guide.html">How to Use</a>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </footer>
   </div>
-  <h1>Terms & Conditions — HFM Video Maker</h1>
-  <p><em>Last Updated: November 2026</em></p>
-  <p>Welcome to <strong>HFM Video Maker</strong>. By accessing or using our website (hfmvideomaker.netlify.app), you agree to be bound by these Terms and Conditions.</p>
-  <h2>1. Acceptable Use Policy</h2>
-  <p>You agree to use HFM Video Maker strictly for lawful, creative, educational, and entertainment purposes. Creating deceptive deepfakes, non-consensual likenesses, hate speech, harassment, or copyright-infringing media is strictly prohibited.</p>
-  <h2>2. Intellectual Property & Generated Media</h2>
-  <p>You retain full rights to use and distribute videos and voiceovers generated from your original text prompts, provided you own or have permission to use any uploaded character reference images.</p>
-  <h2>3. Disclaimer & Availability</h2>
-  <p>AI video and voice synthesis services rely on cloud inference infrastructure and are provided "as is." Rendering speeds and availability may vary depending on API server demand.</p>
-  <h2>4. Contact Information</h2>
-  <p>For questions regarding these Terms, contact us at <strong>halkifulkimasti@gmail.com</strong>.</p>
 </body>
 </html>
