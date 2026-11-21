@@ -10,8 +10,8 @@ exports.handler = async (event) => {
     // 1. START VIDEO GENERATION
     if (action === "start_video") {
       if (engine === "runway") {
-        const key = process.env.RUNWAY_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "RUNWAY_API_KEY is missing." }) };
+        const key = (process.env.RUNWAY_API_KEY || "").trim();
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "RUNWAY_API_KEY is missing in Netlify." }) };
 
         const res = await fetch("https://api.dev.runwayml.com/v1/image_to_video", {
           method: "POST",
@@ -34,13 +34,13 @@ exports.handler = async (event) => {
       }
 
       if (engine === "minimax") {
-        const key = process.env.MINIMAX_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "MINIMAX_API_KEY is missing." }) };
+        const key = (process.env.MINIMAX_API_KEY || "").trim();
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "MINIMAX_API_KEY is missing in Netlify." }) };
 
         const payload = { model: "video-01", prompt };
         if (imageBase64) payload.first_frame_image = imageBase64;
 
-        const res = await fetch("https://api.minimax.chat/v1/video_generation", {
+        const res = await fetch("https://api.minimax.io/v1/video_generation", {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${key}`,
@@ -54,8 +54,8 @@ exports.handler = async (event) => {
       }
 
       if (engine === "seedance") {
-        const key = process.env.SEEDANCE_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SEEDANCE_API_KEY is missing." }) };
+        const key = (process.env.SEEDANCE_API_KEY || "").trim();
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SEEDANCE_API_KEY is missing in Netlify." }) };
 
         const content = [{ type: "text", text: `${prompt} --ratio 9:16 --dur 5` }];
         if (imageBase64) {
@@ -79,9 +79,10 @@ exports.handler = async (event) => {
     // 2. CHECK VIDEO STATUS
     if (action === "check_video") {
       if (engine === "runway") {
+        const key = (process.env.RUNWAY_API_KEY || "").trim();
         const res = await fetch(`https://api.dev.runwayml.com/v1/tasks/${taskId}`, {
           headers: {
-            "Authorization": `Bearer ${process.env.RUNWAY_API_KEY}`,
+            "Authorization": `Bearer ${key}`,
             "X-Runway-Version": "2024-11-06"
           }
         });
@@ -92,11 +93,12 @@ exports.handler = async (event) => {
       }
 
       if (engine === "minimax") {
-        const headers = { "Authorization": `Bearer ${process.env.MINIMAX_API_KEY}` };
-        const res = await fetch(`https://api.minimax.chat/v1/query/video_generation?task_id=${taskId}`, { headers });
+        const key = (process.env.MINIMAX_API_KEY || "").trim();
+        const headers = { "Authorization": `Bearer ${key}` };
+        const res = await fetch(`https://api.minimax.io/v1/query/video_generation?task_id=${taskId}`, { headers });
         const data = await res.json();
         if (data.status === "Success") {
-          const fRes = await fetch(`https://api.minimax.chat/v1/files/retrieve?file_id=${data.file_id}`, { headers });
+          const fRes = await fetch(`https://api.minimax.io/v1/files/retrieve?file_id=${data.file_id}`, { headers });
           const fData = await fRes.json();
           return { statusCode: 200, body: JSON.stringify({ status: "succeeded", videoUrl: fData?.file?.download_url }) };
         }
@@ -105,8 +107,9 @@ exports.handler = async (event) => {
       }
 
       if (engine === "seedance") {
+        const key = (process.env.SEEDANCE_API_KEY || "").trim();
         const res = await fetch(`https://ark.ap-southeast.bytepluses.com/api/v3/contents/generations/tasks/${taskId}`, {
-          headers: { "Authorization": `Bearer ${process.env.SEEDANCE_API_KEY}` }
+          headers: { "Authorization": `Bearer ${key}` }
         });
         const data = await res.json();
         if (data.status === "succeeded") return { statusCode: 200, body: JSON.stringify({ status: "succeeded", videoUrl: data?.content?.video_url }) };
@@ -115,11 +118,11 @@ exports.handler = async (event) => {
       }
     }
 
-    // 3. GENERATE STUDIO VOICE (Updated to Sarvam bulbul:v3)
+    // 3. GENERATE STUDIO VOICE
     if (action === "voice") {
       if (provider === "sarvam") {
-        const key = process.env.SARVAM_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SARVAM_API_KEY is missing." }) };
+        const key = (process.env.SARVAM_API_KEY || "").trim();
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SARVAM_API_KEY is missing in Netlify." }) };
 
         const res = await fetch("https://api.sarvam.ai/text-to-speech", {
           method: "POST",
@@ -146,8 +149,8 @@ exports.handler = async (event) => {
       }
 
       if (provider === "elevenlabs") {
-        const key = process.env.ELEVENLABS_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "ELEVENLABS_API_KEY is missing." }) };
+        const key = (process.env.ELEVENLABS_API_KEY || "").trim();
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "ELEVENLABS_API_KEY is missing in Netlify." }) };
 
         const vid = speaker || "pNInz6obpgDQGcFmaJgB";
         const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${vid}`, {
