@@ -3,37 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>How to Use & Guide — HFM Video Maker</title>
+  <title>How to Use — HFM Voice Maker</title>
   <style>
-    body { background:#0f0f0f; color:#e4e4e7; font-family:system-ui,sans-serif; line-height:1.7; padding:20px; max-width:800px; margin:auto; }
-    a { color:#f59e0b; text-decoration:none; }
-    h1, h2 { color:#fff; margin-top:20px; }
-    .nav { background:#1c1c1e; padding:12px 16px; border-radius:12px; margin-bottom:20px; display:flex; gap:14px; flex-wrap:wrap; }
+    :root { --bg: #0f0f0f; --card: #1c1c1e; --border: #323236; --text: #ffffff; --muted: #a1a1aa; --accent: #f59e0b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.65; padding: 12px; }
+    .container { max-width: 780px; margin: 0 auto; }
+    .top-nav { display: flex; align-items: center; gap: 14px; overflow-x: auto; background: var(--card); border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; margin-bottom: 14px; white-space: nowrap; }
+    .top-nav a { color: #d4d4d8; text-decoration: none; font-size: 0.84rem; font-weight: 600; }
+    .top-nav a.active, .top-nav a:hover { color: var(--accent); }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 16px; }
+    h1 { font-size: 1.35rem; color: var(--accent); margin-bottom: 10px; }
+    h2 { font-size: 1.05rem; color: #fff; margin: 16px 0 6px; }
+    p, li { font-size: 0.92rem; color: #d4d4d8; margin-bottom: 8px; }
+    ul { padding-left: 20px; }
+    footer { text-align: center; color: var(--muted); font-size: 0.82rem; padding: 18px 8px 30px; border-top: 1px solid var(--border); }
+    .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 10px; }
+    .footer-links a { color: var(--accent); text-decoration: none; font-weight: 600; }
   </style>
 </head>
 <body>
-  <div class="nav">
-    <a href="index.html">🏠 Home</a>
-    <a href="guide.html">How to Use</a>
-    <a href="about.html">About Us</a>
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms</a>
-    <a href="contact.html">Contact Us</a>
+  <div class="container">
+    <nav class="top-nav">
+      <a href="index.html">🏠 Home</a>
+      <a href="guide.html" class="active">📘 How to Use</a>
+      <a href="about.html">ℹ️ About Us</a>
+      <a href="privacy.html">🔒 Privacy Policy</a>
+      <a href="terms.html">📜 Terms</a>
+      <a href="contact.html">📞 Contact Us</a>
+    </nav>
+
+    <div class="card">
+      <h1>📘 How to Use HFM Voice Maker</h1>
+      <p>Follow these simple steps to generate natural, studio-quality AI voiceovers in Hindi, English, and 10+ regional languages for YouTube videos, Shorts, Reels, and stories.</p>
+
+      <h2>Step 1: Choose Your Voice Engine</h2>
+      <ul>
+        <li><strong>Sarvam AI (Indian Multi-Age):</strong> Best for natural Hindi, English (Indian accent), Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, and Punjabi voices without robotic distortion.</li>
+        <li><strong>ElevenLabs (Global & Cartoon):</strong> Best for expressive global narrations, deep storytelling voices, and animated cartoon characters.</li>
+      </ul>
+
+      <h2>Step 2: Select Language & Speaker Profile</h2>
+      <p>Choose your <strong>Target Language</strong> and select a <strong>Speaker</strong> matching your character's age and gender—including Young Male, Mature/Elder Male, Young Female, Elder Female, and Kids voices.</p>
+
+      <h2>Step 3: Paste Your Script (No Character Limit)</h2>
+      <p>Type or paste your dialogue, story, or YouTube script into the <strong>Dialogue / Script</strong> box. Even if your script is longer than 500 characters, HFM Voice Maker automatically splits it into natural sentences and merges the audio seamlessly.</p>
+
+      <h2>Step 4: Generate & Download Audio</h2>
+      <p>Tap <strong>Generate Studio Voice</strong>, preview your voiceover directly in the built-in player, and tap <strong>Download Audio</strong> to save the high-clarity WAV or MP3 file to your device.</p>
+    </div>
+
+    <footer>
+      <p><strong>© 2026 HFM Voice Maker. All Rights Reserved.</strong></p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="guide.html">How to Use</a>
+        <a href="about.html">About Us</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms & Conditions</a>
+        <a href="contact.html">Contact Us</a>
+      </div>
+    </footer>
   </div>
-  <h1>How to Use HFM Video Maker — Creator Guide</h1>
-  <p><strong>HFM Video Maker</strong> helps creators generate watermark-free AI videos and realistic multi-age voiceovers in Hindi, English, and major global languages.</p>
-  <h2>Step 1: Generating Watermark-Free AI Videos</h2>
-  <ul>
-    <li><strong>Select Your Video Engine:</strong> Choose <em>Seedance 1.0</em> for smooth character movement, <em>MiniMax (Hailuo Video-01)</em> for cinematic 3D animation, or <em>RunwayML (Gen-3 Alpha Turbo)</em> for image-to-video motion.</li>
-    <li><strong>Enter a Detailed Prompt:</strong> Describe the character, outfit, expression, lighting, and background clearly.</li>
-    <li><strong>Upload Reference Image (Optional):</strong> Upload a character image to keep your character consistent across multiple scenes, or leave it empty for Text-to-Video.</li>
-    <li><strong>Download HD MP4:</strong> Once rendered, preview and download your clean, watermark-free MP4 video.</li>
-  </ul>
-  <h2>Step 2: Creating Multi-Age & Multi-Language Voiceovers</h2>
-  <ul>
-    <li>Switch to <strong>Voice Studio</strong> on the home page.</li>
-    <li>Choose <strong>Sarvam AI</strong> for natural Indian languages (Hindi, Bengali, Tamil, Telugu, Marathi, Gujarati, Kannada, Malayalam, Punjabi) or <strong>ElevenLabs</strong> for global and cartoon voices.</li>
-    <li>Pick a speaker matching your character's age and gender, paste your script, and download studio-quality audio.</li>
-  </ul>
 </body>
 </html>
