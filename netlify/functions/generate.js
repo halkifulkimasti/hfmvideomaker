@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     if (action === "start_video") {
       if (engine === "runway") {
         const key = process.env.RUNWAY_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "RUNWAY_API_KEY is missing in Netlify settings." }) };
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "RUNWAY_API_KEY is missing." }) };
 
         const res = await fetch("https://api.dev.runwayml.com/v1/image_to_video", {
           method: "POST",
@@ -35,7 +35,7 @@ exports.handler = async (event) => {
 
       if (engine === "minimax") {
         const key = process.env.MINIMAX_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "MINIMAX_API_KEY is missing in Netlify settings." }) };
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "MINIMAX_API_KEY is missing." }) };
 
         const payload = { model: "video-01", prompt };
         if (imageBase64) payload.first_frame_image = imageBase64;
@@ -55,7 +55,7 @@ exports.handler = async (event) => {
 
       if (engine === "seedance") {
         const key = process.env.SEEDANCE_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SEEDANCE_API_KEY is missing in Netlify settings." }) };
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SEEDANCE_API_KEY is missing." }) };
 
         const content = [{ type: "text", text: `${prompt} --ratio 9:16 --dur 5` }];
         if (imageBase64) {
@@ -115,11 +115,11 @@ exports.handler = async (event) => {
       }
     }
 
-    // 3. GENERATE STUDIO VOICE
+    // 3. GENERATE STUDIO VOICE (Updated to Sarvam bulbul:v3)
     if (action === "voice") {
       if (provider === "sarvam") {
         const key = process.env.SARVAM_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SARVAM_API_KEY is missing in Netlify settings." }) };
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "SARVAM_API_KEY is missing." }) };
 
         const res = await fetch("https://api.sarvam.ai/text-to-speech", {
           method: "POST",
@@ -130,8 +130,8 @@ exports.handler = async (event) => {
           body: JSON.stringify({
             inputs: [text],
             target_language_code: lang || "hi-IN",
-            speaker: speaker || "arvind",
-            model: "bulbul:v1"
+            speaker: speaker || "shubh",
+            model: "bulbul:v3"
           })
         });
         const data = await res.json();
@@ -147,7 +147,7 @@ exports.handler = async (event) => {
 
       if (provider === "elevenlabs") {
         const key = process.env.ELEVENLABS_API_KEY;
-        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "ELEVENLABS_API_KEY is missing in Netlify settings." }) };
+        if (!key) return { statusCode: 400, body: JSON.stringify({ error: "ELEVENLABS_API_KEY is missing." }) };
 
         const vid = speaker || "pNInz6obpgDQGcFmaJgB";
         const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${vid}`, {
